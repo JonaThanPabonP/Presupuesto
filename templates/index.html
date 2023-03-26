@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Presupuesto mensual{% endblock %}
+{% block content %}
+	<div class="intro-text">
+		<div class="welcome">¡Tus finanzas son importantes!</div>
+		<div class="description">Aquí podrás llevar un control de tus ingresos, de tus gastos y conocer el balance de tus finanzas.</div>
+	</div>
+	<div class="container col-lg-8 tarjetas">
+		<div class="row">
+			<div class="col-md-4">
+				<div class="tarjeta ingresos">
+					<div class="card-body p-0">
+						<h3 class="card-title">Ingresos</h3>
+						<p class="card-text">{{ total_ingresos }}</p>
+					</div>
+					<div class="d-flex w-100 justify-content-start p-2">
+						<a href="{{ url_for('add') }}" class="btn rounded-circle m-2">+</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="tarjeta gastos">
+					<div class="card-body p-0">
+						<h3 class="card-title">Gastos</h3>
+						<p class="card-text">{{ total_gastos }}</p>
+					</div>
+					<div class="d-flex w-100 justify-content-end p-2">
+						<a href="{{ url_for('add') }}" class="btn rounded-circle m-2">+</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="tarjeta balance">
+					<div class="card-body">
+						<h1 class="balance-title">Balance</h1>
+						<p class="balance-text">{{ balance }}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% set active = 'index' %}

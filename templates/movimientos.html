@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}
+Movimientos - Detalle
+{% endblock %}
+
+{% block content %}
+<div class="titulo">
+    Detalle de los movimientos
+</div>
+
+<div class="container-tablas col-lg-10 offset-1">
+    <div class="row">
+        <div class="div-ingresos col-lg-5">
+            <div class="titulo-tabla">Ingresos</div>
+            <div class="body-tabla">
+                <table class="tabla-reporte table-sm">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Fecha</th>
+                        <th>Categoría</th>
+                        <th>Detalle</th>
+                        <th>Valor</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for detalle in tabla_ingresos %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ detalle.fecha }}</td>
+                        <td>{{ detalle.categoria }}</td>
+                        <td class="text-left">{{ detalle.detalle }}</td>
+                        <td class="text-right">{{ detalle.monto }}</td>
+                        <td class="d-flex">
+                            <a href="{{ url_for('edit', id=detalle._id) }}">
+                                <i class="boton-accion m-1 fa fas fa-pen"></i>
+                            </a>
+                            <form action="/delete/{{ detalle._id }}" method="POST" onsubmit="return confirm('¿Está seguro que quiere eliminar este registro?')">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button class="border-0" type="submit"><i class="boton-accion fa fas fa-trash-alt"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="div-gastos col-lg-5">
+            <div class="titulo-tabla">Gastos</div>
+            <div class="body-tabla">
+                <table class="tabla-reporte table-sm">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Fecha</th>
+                        <th>Categoría</th>
+                        <th>Detalle</th>
+                        <th>Valor</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for detalle in tabla_gastos %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ detalle.fecha }}</td>
+                        <td>{{ detalle.categoria }}</td>
+                        <td class="text-left">{{ detalle.detalle }}</td>
+                        <td class="text-right">{{ detalle.monto }}</td>
+                        <td class="d-flex">
+                            <a href="{{ url_for('index') }}">
+                                <i class="boton-accion m-1 fa fas fa-pen"></i>
+                            </a>
+                            <form action="/delete/{{ detalle._id }}" method="POST" onsubmit="return confirm('¿Está seguro que quiere eliminar este registro?')">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button class="border-0" type="submit"><i class="boton-accion fa fas fa-trash-alt"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% set active = 'movimientos' %}

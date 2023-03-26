@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='imgs/logo.png') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.js"></script>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav">
+                    <li class="nav-item mr-3"><a {% if active=='index' %}class="nav-link active" {% else
+                            %}class="nav-link" {% endif %} href="/"><img class="logo"
+                                src="{{ url_for('static', filename='imgs/logo.png') }}"></a></li>
+                    <li class="nav-item mr-3"><a {% if active=='movimientos' %}class="nav-link active" {% else
+                            %}class="nav-link" {% endif %} href="/movimientos">Movimientos</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="alert success-alert">
+            {% for message in messages %}
+            {{ message }}
+            {% endfor %}
+            <a class="close">&times;</a>
+        </div>
+        {% endif %}
+        {% endwith %}
+    </main>
+
+    <footer>
+        <p>Tu presupuesto mensual &copy; 2023</p>
+    </footer>
+
+    <script>
+        $(".close").click(function () {
+            $(this)
+                .parent(".alert")
+                .fadeOut();
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha384-oxeFktoUDM6a6rvBMb8w6W+U6ZlKpXBsNVvRku+Xhub+iqBhq8NXNOq/tyB7PwOO"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-nEt5S8S5V7v0yJ9pVlFRAO4o4V7/qYD1+a11BwOQ/r+pSjNUSzvJfX9yzVz9/fe"
+        crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>

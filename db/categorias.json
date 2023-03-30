@@ -1,0 +1,49 @@
+[{
+  "_id": {
+    "$oid": "64173111434463b62c88aa38"
+  },
+  "nombre": "Categoria1",
+  "valor-previsto": 123,
+  "valor-real": 111,
+  "tipo": "Ingreso"
+},{
+  "_id": {
+    "$oid": "64173111434463b62c88aa39"
+  },
+  "nombre": "Categoria2",
+  "valor-previsto": 123,
+  "valor-real": 112,
+  "tipo": "Ingreso"
+},{
+  "_id": {
+    "$oid": "64173111434463b62c88aa3a"
+  },
+  "nombre": "Categoria3",
+  "valor-previsto": 123,
+  "valor-real": 113,
+  "tipo": "Gasto"
+},{
+  "_id": {
+    "$oid": "64173111434463b62c88aa3b"
+  },
+  "nombre": "Categoria4",
+  "valor-previsto": 123,
+  "valor-real": 114,
+  "tipo": "Ingreso"
+},{
+  "_id": {
+    "$oid": "64192a497fc86a20b416d795"
+  },
+  "nombre": "Categoria5",
+  "valor-previsto": 222000,
+  "valor-real": 11455,
+  "tipo": "Gasto"
+},{
+  "_id": {
+    "$oid": "642514887821b6c26c5c2ec6"
+  },
+  "nombre": "Categoria6",
+  "valor-previsto": 1000000,
+  "valor-real": 10000,
+  "tipo": "Gasto"
+}]

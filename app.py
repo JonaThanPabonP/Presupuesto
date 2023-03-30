@@ -1,15 +1,16 @@
 from json import dumps
 from bson import ObjectId
-from flask import Flask, jsonify, redirect, render_template, request, flash
+from flask import Flask, redirect, render_template, request, flash
 from models import Movimiento
 from pymongo import MongoClient
-import locale, pdb
-from datetime import datetime
+import locale,config
 
 app = Flask(__name__)
-app.config.from_object("config.DevelopmentConfig")
-mongo_client = MongoClient(app.config["MONGO_URI"])
-db = mongo_client.presupuesto
+
+# Conexión a mongodb
+client = MongoClient(config.MONGO_URI)
+app.config.from_object(config)
+db = client.bgcbmv22klckam0
 
 @app.route("/")
 def index():
@@ -17,8 +18,8 @@ def index():
     ingresos = 0
     locale.setlocale(locale.LC_ALL, '')
 
-    data_ingresos = db.transacciones.find({"tipo":"Ingreso"})
-    data_gastos = db.transacciones.find({"tipo":"Gasto"})
+    data_ingresos = db.Transacciones.find({"tipo":"Ingreso"})
+    data_gastos = db.Transacciones.find({"tipo":"Gasto"})
 
     ingresos = sum([ingreso['monto'] for ingreso in data_ingresos])
     gastos = sum([gasto['monto'] for gasto in data_gastos])
@@ -41,7 +42,7 @@ def add():
         monto = request.form.get('monto')
         
         nuevo_movimiento = Movimiento(fecha, tipo, categoria, detalle, monto)
-        db.transacciones.insert_one(nuevo_movimiento.nuevo())
+        db.Transacciones.insert_one(nuevo_movimiento.nuevo())
         flash("Movimiento agregado exitosamente")
         return redirect('/movimientos');
     return render_template('add.html')
@@ -49,7 +50,7 @@ def add():
 
 @app.route('/delete/<id>', methods=['POST'])
 def delete(id):
-    db.transacciones.delete_one({'_id': ObjectId(id)})
+    db.Transacciones.delete_one({'_id': ObjectId(id)})
     flash("Movimiento eliminado exitosamente")
     return redirect('/movimientos')
 
@@ -64,28 +65,27 @@ def edit(id):
         monto = request.form.get('monto')
 
         actualiza_movimiento = Movimiento(fecha, tipo, categoria, detalle, monto)
-        db.transacciones.update_one({'_id':ObjectId(id)}, {'$set': actualiza_movimiento.editar()})
+        db.Transacciones.update_one({'_id':ObjectId(id)}, {'$set': actualiza_movimiento.editar()})
         flash("Movimiento actualizado exitosamente")
         return redirect('/movimientos')
     
-    data_movimiento = db.transacciones.find({'_id':ObjectId(id)}).next()
-    categorias = db.categorias.find()
+    data_movimiento = db.Transacciones.find({'_id':ObjectId(id)}).next()
+    categorias = db.Categorias.find()
     return render_template('edit.html', movimiento=data_movimiento, categorias=categorias)
 
 
 @app.route("/movimientos")
 def movimientos():
-    tabla_ingresos = db.transacciones.find({"tipo":"Ingreso"})
-    tabla_gastos = db.transacciones.find({"tipo":"Gasto"})
+    tabla_ingresos = db.Transacciones.find({"tipo":"Ingreso"})
+    tabla_gastos = db.Transacciones.find({"tipo":"Gasto"})
     return render_template("movimientos.html", tabla_ingresos=tabla_ingresos, tabla_gastos=tabla_gastos)
 
 
 @app.route('/categorias_tipo/<tipo>')
 def categorias_tipo(tipo):
-    categorias = db.categorias.find({'tipo': tipo})
+    categorias = db.Categorias.find({'tipo': tipo})
     return dumps([{"nombre": cat["nombre"]} for cat in categorias])
 
 
-
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)

@@ -1,0 +1,28 @@
+[{
+  "_id": {
+    "$oid": "6418bf17786977e49a22b690"
+  },
+  "fecha": "2023-03-19",
+  "tipo": "Ingreso",
+  "categoria": "Categoria4",
+  "detalle": "Sueldo",
+  "monto": 6453000
+},{
+  "_id": {
+    "$oid": "641eea0bfc5e9cf1e3726301"
+  },
+  "fecha": "2023-03-25",
+  "tipo": "Gasto",
+  "categoria": "Categoria5",
+  "detalle": "Pizza",
+  "monto": 35000
+},{
+  "_id": {
+    "$oid": "6424d3579327eabe453ecc9f"
+  },
+  "fecha": "2023-03-29",
+  "tipo": "Gasto",
+  "categoria": "Categoria3",
+  "detalle": "Comida",
+  "monto": 12314250
+}]

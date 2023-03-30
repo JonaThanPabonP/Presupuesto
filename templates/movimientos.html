@@ -71,7 +71,7 @@ Movimientos - Detalle
                         <td class="text-left">{{ detalle.detalle }}</td>
                         <td class="text-right">{{ detalle.monto }}</td>
                         <td class="d-flex">
-                            <a href="{{ url_for('index') }}">
+                            <a href="{{ url_for('edit', id=detalle._id) }}">
                                 <i class="boton-accion m-1 fa fas fa-pen"></i>
                             </a>
                             <form action="/delete/{{ detalle._id }}" method="POST" onsubmit="return confirm('¿Está seguro que quiere eliminar este registro?')">
